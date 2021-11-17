@@ -7,23 +7,71 @@ public class Dijkstra_demo {
 		{ 
 	
 			Scanner sc= new Scanner(System.in);
-			int start, last;
+			String start, last;
+			
+	System.out.println("시작점과 목적지를 입력하시오. ");	
+	System.out.println("비전타워\n법대 건물\n공과대학1\n공과대학2\n가천관\nIT대학"); //문자열로 입력받아서 시작
+
+	start=sc.next();
+	last=sc.next();
+	
+	int startPosition=-1;
+	int lastPosition=-1;
+	
+	if(start.compareTo("비전타워")==1) startPosition=0; //문자열로 입력받은 결과를 숫자(포인트)로 바꿔주기
+
+	else if(start.compareTo("법대 건물")==1) startPosition=1;
+
+	else if(start.compareTo("공과대학1")==1) startPosition=4;
+
+	else if(start.compareTo("공과대학2")==1) startPosition=2;
+
+	else if(start.compareTo("가천관")==1) startPosition=3;
+
+	else if(start.compareTo("IT대학")==1) startPosition=5;
+
+	else {System.out.println("곧 업데이트 됩니다."); System.exit(1);}
 		
-		Graph g = new Graph(6); 
+	
+	Graph g = new Graph(16); // 0~6 : 건물 / 7~15 : 길
 		// 노드 수 만큼 그래프 생성 
 		// 시작, 끝, 간선 가중치 입력 
-		g.input(0, 1, 8);
-		 g.input(1, 2, 5);
-		 g.input(2, 3, 8);
-		 g.input(3, 4, 15);
-		 g.input(0, 3, 20);
-		 g.input(0, 5, 100);
-		// g.input(3, 4, 6);
-	//	 g.input(4, 5, 9); // 시작노드 기준 다익스트라 알고리즘 실행 
-		g.dijkstra(0); 
+	
+	int x= 10000; //아직 정확하게 거리 알지 못하므로 x로 처리함
+	
+	//전체 화살표 = 21개
+		 g.input(0, 1, x);
+		 g.input(0, 6, x);
+		 g.input(0, 7, x);
+	     g.input(0, 15, x);  
+	     g.input(1, 2, x);
+	     
+		 g.input(1, 12, x); 
+		 g.input(2, 11, x); 	 
+		 g.input(3, 9, x);	
+		 g.input(3, 10, x);	 
+		 g.input(4, 5, x);
+		 
+		 g.input(4, 9, x);
+		 g.input(5, 8, x);
+		 g.input(6, 15, x);
+		 g.input(6, 13, x);
+		 g.input(7, 8, x);	 
+		
+		 g.input(8, 14, x);
+		 g.input(9, 10, x);
+		 g.input(10, 11, x);
+		 g.input(10, 14, x);
+		 g.input(12, 13, x);
+		 g.input(13, 14, x);
+		
+		 
+		int result = g.dijkstra(startPosition, lastPosition); //시작노드
+		
 		} 
 	} 
 	
+
 class Graph{ 
 			
 		private int n; // 노드들의 수 
@@ -48,7 +96,15 @@ class Graph{
 			maps[j][i] = w; 
 		}
 		 
-		public void dijkstra(int v)
+		
+		public void printResult(String start, String last, int distanceValue) {
+			System.out.println("시작점 : "+start);
+			System.out.println("도착점 : "+last);
+			System.out.println("최단 거리 : "+distanceValue);
+			
+		}
+		
+		int dijkstra(int start ,int last)
 		{
 			int distance[] = new int[n]; // 최단 거리를 저장할 변수 
 		    boolean[] check = new boolean[n]; // 해당 노드를 방문했는지 체크할 변수 
@@ -65,8 +121,8 @@ class Graph{
 		System.out.println(""); // 연결노드 distance갱신 
 		
 		for(int i=0; i<n; ++i){
-		 if(!check[i] && maps[v][i] != Integer.MAX_VALUE)
-		 { distance[i] = maps[v][i]; }  
+		 if(!check[i] && maps[start][i] != Integer.MAX_VALUE)
+		 { distance[i] = maps[start][i]; }  
 		
 		// 결과값 출력 for(int i=0; i<n; ++i)
 		if(distance[i] == 2147483647) 
@@ -97,17 +153,19 @@ class Graph{
 					distance[i] = distance[min_index] + maps[min_index][i]; } 
 				}
 		}
-		
+	
+		/* 결과값 출력하는 부분
 		for(int i=0; i<n; ++i){ 
 			if(distance[i] == 2147483647)
 				System.out.print("∞ "); // 결과값 출력 
 			else 
 				System.out.print(distance[i]+" ");
 		 }
-		
+		*/
 	
-		System.out.println(""); 
-		} 
+		}
+				return distance[last]; //최단거리 반환
+				
 	} 
 
 }
