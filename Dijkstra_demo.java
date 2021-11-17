@@ -12,7 +12,7 @@ public class Dijkstra_demo {
 		Graph g = new Graph(6); 
 		// 노드 수 만큼 그래프 생성 
 		// 시작, 끝, 간선 가중치 입력 
-		g.input(0, 1, 10);
+		g.input(0, 1, 8);
 		 g.input(1, 2, 5);
 		 g.input(2, 3, 8);
 		 g.input(3, 4, 15);
