@@ -49,29 +49,34 @@ public class Dijkstra_demo {
 	else {System.out.println("곧 업데이트 됩니다."); System.exit(1);}
 	
 	
-	Graph g = new Graph(16); // 위치 16개 : 0~6 : 건물 / 7~15 : 길
+	Graph g = new Graph(17); // 위치 16개 : 0~6 : 건물 / 7~15 : 길
 		// 노드 수 만큼 그래프 생성 
 		// 시작, 끝, 간선 가중치 입력 
 	
 //	int x= 10000; //아직 정확하게 거리 알지 못하므로 x로 처리함
 	
 	//전체 화살표 = 21개
-		 g.input(0, 1, 1);
-		 g.input(0, 6, 2);
-		 g.input(0, 7, 3);
-	     g.input(0, 15, 4);  
-	     g.input(1, 2, 8);
+		 g.input(0, 1, 90);
+		 g.input(0, 6, 20);
+		 g.input(0, 7, 70);
+	     g.input(0, 15, 22);  
+	     g.input(1, 2, 80);
 	     
-		 g.input(1, 12, 6); 
-		 g.input(2, 11, 7); 	 
-		 g.input(3, 9, 9);	
-		 g.input(3, 10, 10);	 
-		 g.input(4, 5, 11);
+		 g.input(1, 12, 40); 
+		 g.input(2, 11, 55); 	 
+		 g.input(3, 9, 45);	
+		 g.input(3, 10, 60);	 
+		 g.input(4, 5, 70);
 		 
-		 g.input(4, 9, 12);
-		 g.input(5, 8, 13);
-		 g.input(6, 15, 14);
-		 g.input(6, 13, 15);
+		 g.input(4, 9, 150);
+		 g.input(5, 8, 53);
+		 g.input(6, 15, 35);
+		 g.input(6, 13, 127); //계단으로 비전타워를 내려가는 경우
+		 
+		 g.input(14,16,63); //16: 비전타워 엘리베이터
+		 g.input(12,16,50);
+		 g.input(6,16,5); //엘리베이터 타는 경우
+		 
 		 g.input(7, 8, 16);	 
 		
 		 g.input(8, 14, 17);
