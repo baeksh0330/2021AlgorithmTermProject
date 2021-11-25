@@ -36,7 +36,7 @@ public class Dijkstra_demo {
 
 	
 	System.out.println("출발지와 목적지를 입력하시오. ");	
-	System.out.println("\n(여기 swing으로 처리할 수 있으면 할것)\n비전타워\n법학대학\n공과대학1\n공과대학2\n가천관\nIT대학\n\n"); //문자열로 입력받아서 시작
+	System.out.println("\n비전타워\n법학대학\n공과대학1\n공과대학2\n가천관\nIT대학\n\n"); //문자열로 입력받아서 시작
 
 	start=sc.nextLine();
 	last=sc.nextLine();
@@ -115,14 +115,7 @@ public class Dijkstra_demo {
 		 g.input(10, 11, 95,walk);
 		 g.input(10, 14, 142,walk);
 		
-	/*	 
-		System.out.println("최단거리 = 1 / 최소로 걷는 거리 = 2");
-		int walk=sc.nextInt(); //최단 거리 =1 / 최소 걷는 거리(엘리베이터 적극이용) =2
-		
-		if(walk==1)
-			g.smallest_walk_distance(); // 최단 거리로 갈 경우 
-	*/	
-		
+
 		int result = g.dijkstra(startPosition, lastPosition); //출발지, 목적지
 	//	g.printResult(start, last, result);
 		g.printResult(startPosition, lastPosition, result);
@@ -189,9 +182,15 @@ class Graph{
 
 	public void input(int i,int j,int w, int walkOrNot)
 		{ 
-		if(walkOrNot==2 && ((i==1 && j==2) || (j==1 && i==2)))
+		if(walkOrNot==2 && ((i==1 && j==2) || (j==1 && i==2))) // 1->2구름다리 이용경로
+		{
+			//구름다리 이용해서 가는 경우는 자동으로 최단거리에 포함될것같아서 출력 위주로 하면 될듯 
+		}	
+			
+		else {
 			maps[i][j] = w; 
 			maps[j][i] = w; 
+		}
 		}//public void input
 		 
 
@@ -206,14 +205,28 @@ class Graph{
 		    for(int i=0; i<n; ++i){
 		    	distance[i] = Integer.MAX_VALUE; 
 		    }//for 
-
+		    
+		System.out.println("==============================================================================================================================");
+		for(int i=0; i<n; i++)System.out.print(i+"\t");
+		System.out.println("\n===========================================================================================================================");
+		
+		    for(int i=0; i<n; ++i)////////////////////////////////////////////////////////////////////////////////////////////////////////////출력하는 부분
+		    {	if(distance[i] == 2147483647) 
+					System.out.print("∞"+"\t"); 
+				else System.out.print(distance[i]+"\t"); }
+					System.out.println(""); 
+		   
+		    
 		  		 
 		for(int i=0; i<n; ++i){
 		 if(!check[i] && maps[start][i] != Integer.MAX_VALUE){ //방문했던 곳이 아니고 start->i가 이어져 있을때
 			 distance[i] = maps[start][i]; //누적 거리 : start->i추가
 			 }//if  				
 		}//for
-			 
+		
+
+			 	
+			 	
 			for(int a=0; a<n-1; ++a){
 				int min = Integer.MAX_VALUE; int min_index = -1; 
 		// 노드 최소값 찾기 
@@ -225,7 +238,12 @@ class Graph{
 				} //for
 			} //for
 		
-
+			    for(int i=0; i<n; ++i)////////////////////////////////////////////////////////////////////////////////////////////////////////////출력하는 부분
+			    {	if(distance[i] == 2147483647) 
+						System.out.print("∞"+"\t"); 
+					else System.out.print(distance[i]+"\t"); }
+						System.out.println(""); 
+			   
 		
 		check[min_index] = true; //현 노드 방문
 		
@@ -239,6 +257,15 @@ class Graph{
 
 	
 		}//for
+			
+
+			for(int i=0; i<n; ++i){  /////////////////////////////////////////////////////////////////////////////////////////////////출력하는 부분
+				if(distance[i] == 2147483647)
+					System.out.print("∞"+"\t"); // 결과값 출력 
+				else 
+					System.out.print(distance[i]+"\t");
+			 }//for
+
 				return distance[last]; //최단거리 반환
 				
 	} //int dijkstra
