@@ -238,20 +238,22 @@ class Graph{
 			} //for
 		} //for
 	
+			/*
 		    for(int i=0; i<n; ++i)////////////////////////////////////////////////////////////////////////////////////////////////////////////출력하는 부분
 		    {	if(distance[i] == 2147483647) 
 					System.out.print("∞"+"\t"); 
 				else System.out.print(distance[i]+"\t"); }
 					System.out.println(""); 
-		   
+		   */
 	
 	check[min_index] = true; //현 노드 방문
-	
+
 	for(int i=0; i<n; ++i){ 
 		if(!check[i] && maps[min_index][i] != Integer.MAX_VALUE){
 			if(distance[min_index] + maps[min_index][i] < distance[i]){
 				{	
 					distance[i] = distance[min_index] + maps[min_index][i]; //새 최단거리 갱신하는 경우==================================
+					navigation[i]=road[min_index];
 
 					}//if
 				}//if 
@@ -259,7 +261,8 @@ class Graph{
 		}//for
 	}//for
 		
-
+		
+/*
 		for(int i=0; i<n; ++i){  /////////////////////////////////////////////////////////////////////////////////////////////////출력하는 부분
 			if(distance[i] == 2147483647)
 				System.out.print("∞"+"\t"); // 결과값 출력 
@@ -268,9 +271,11 @@ class Graph{
 		 }//for
 
 			System.out.println("\n\n");
+*/
+	
 
+		
 printResult(start, last, distance[last]); //print
-
 
 
 	String route = "";
@@ -278,18 +283,14 @@ printResult(start, last, distance[last]); //print
 	int index = last;
 	while(true) {
 		if(navigation[index] == road[index]) break; //시작 꼭지점일 경우 break
-		route += " " + navigation[index];
+		route += navigation[index]+ " <- " ;
 		index = stringToInt(navigation[index]); //결정적인 역할을 한 꼭지점을 int형으로 바꿔서 index에 저장 
 	}
 	StringBuilder sb = new StringBuilder(route);
-	System.out.println("sb"+sb);
-
+	System.out.println("경로 : "+road[last]+" < - "+sb.substring(0,sb.length()-4));
 		
 			
-			
 				
-	} //int dijkstra
+	} //void dijkstra
 
 }//class graph
-
-
